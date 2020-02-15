@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    android:id="@+id/card_front"
+<androidx.cardview.widget.CardView android:id="@+id/card_front"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    app:cardElevation="@dimen/card_elevation"
+    android:layout_marginTop="@dimen/distance_between_cards"
+    android:layout_marginStart="@dimen/distance_between_cards"
+    android:layout_marginBottom="@dimen/distance_between_cards"
+    android:layout_marginEnd="@dimen/distance_between_cards"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/image_back"

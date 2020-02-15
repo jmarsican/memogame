@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<FrameLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_gravity="center"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    card_view:cardCornerRadius="10dp"
-    card_view:cardElevation="6dp"
-    tools:showIn="@layout/fragment_gameplay">
+    android:layout_height="wrap_content">
 
     <com.wajahatkarim3.easyflipview.EasyFlipView
         android:id="@+id/cardFlipView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
         app:flipEnabled="true"
         app:flipDuration="400"
         app:flipType="horizontal"
         app:flipFrom="back"
         app:autoFlipBack="true"
         app:autoFlipBackTime="1000">
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            card_view:cardElevation="@dimen/card_elevation"
+            android:layout_marginTop="@dimen/distance_between_cards"
+            android:layout_marginStart="@dimen/distance_between_cards"
+            android:layout_marginBottom="@dimen/distance_between_cards"
+            android:layout_marginEnd="@dimen/distance_between_cards"
+            android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/card_cover"
             android:src="@mipmap/memory_cat_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        </androidx.cardview.widget.CardView>
 
         <include layout="@layout/card_back" />
 
     </com.wajahatkarim3.easyflipview.EasyFlipView>
 
-</androidx.cardview.widget.CardView>
+</FrameLayout>
