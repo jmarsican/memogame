@@ -38,6 +38,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
+    implementation "androidx.cardview:cardview:1.0.0"
 
     //rxjava
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
