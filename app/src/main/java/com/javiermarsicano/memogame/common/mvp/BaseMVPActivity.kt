@@ -8,6 +8,7 @@ import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import com.javiermarsicano.memogame.R
 import java.util.UUID
 
 
