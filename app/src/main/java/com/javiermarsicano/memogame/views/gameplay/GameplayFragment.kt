@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import com.javiermarsicano.memogame.R
 import com.javiermarsicano.memogame.common.mvp.BaseMVPFragment
 import com.wajahatkarim3.easyflipview.EasyFlipView
@@ -45,12 +44,17 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
                 for (j in 0 until width) {
                     val cardLayout = inflater.inflate(R.layout.memocard, null)
 
+                    val card = presenter.getCard(it.size)
                     val cover = cardLayout.findViewById<ImageView>(R.id.card_cover)
-                    cover.setImageResource(presenter.getCard(it.size).image)
-                    val child = cardLayout.findViewById<EasyFlipView>(R.id.cardFlipView)
-                    child.setOnFlipListener { flipView, _ -> onClick(flipView) }
-                    it.add(child)
-                    child.tag = it.size - 1
+                    val flipView = cardLayout.findViewById<EasyFlipView>(R.id.cardFlipView)
+                    cardLayout.setOnClickListener {
+                        flipView.flipTheView()
+                        onClick(flipView)
+                    }
+                    cover.setImageResource(card.image)
+
+                    it.add(flipView)
+                    flipView.tag = card.id
                     row.addView(cardLayout)
                 }
                 view.addView(row)
@@ -64,8 +68,12 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
         cards?.get(position)?.flipTheView()
     }
 
+    override fun setMatchingCard(position: Int) {
+        cards?.get(position)?.isFlipEnabled = false
+    }
+
     private fun onClick(view: View?) {
-        Toast.makeText(context,"CLICK ${view?.tag}", Toast.LENGTH_SHORT).show()
+        presenter.onCardClicked(view?.tag as Int)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

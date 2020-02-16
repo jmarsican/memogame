@@ -14,14 +14,14 @@
         android:layout_height="@dimen/card_height"
         app:flipEnabled="true"
         app:flipDuration="400"
+        app:flipOnTouch="false"
         app:flipType="horizontal"
-        app:flipFrom="back"
-        app:autoFlipBack="true"
-        app:autoFlipBackTime="1000">
+        app:flipFrom="back">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             card_view:cardElevation="@dimen/card_elevation"
+            android:id="@+id/card"
             android:layout_marginTop="@dimen/distance_between_cards"
             android:layout_marginStart="@dimen/distance_between_cards"
             android:layout_marginBottom="@dimen/distance_between_cards"
