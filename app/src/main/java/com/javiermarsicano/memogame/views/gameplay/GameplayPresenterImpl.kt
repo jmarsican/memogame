@@ -1,23 +1,32 @@
 package com.javiermarsicano.memogame.views.gameplay
 
-import android.os.Handler
 import com.javiermarsicano.memogame.common.mvp.BaseMVPPresenter
 import com.javiermarsicano.memogame.domain.Card
 import com.javiermarsicano.memogame.domain.Model
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class GameplayPresenterImpl(width: Int, height: Int): BaseMVPPresenter<GameplayView>(), GameplayPresenter {
 
     private var cards = ArrayList<Card>()
     private var lastCardClicked: Card? = null
     private var firstClick: Boolean = true
+    val timer = Observable.timer(1, TimeUnit.SECONDS, Schedulers.io())
 
     init {
-        val coverImages = Model.values()
+        val total = width*height
+        val coverImages = mutableListOf<Int>()
+        val images = Model.values()
+        for (i in 0 until total/2) {
+            coverImages.add(images[i].id)
+            coverImages.add(images[i].id)
+        }
+        coverImages.shuffle()
 
-        val pairsCount = width*height / 2
-        for (i in 0 until pairsCount) {
-            cards.add(Card(cards.size, coverImages[i].id))
-            cards.add(Card(cards.size, coverImages[i].id))
+        for (i in 0 until total) {
+            cards.add(Card(cards.size, coverImages[i]))
         }
     }
 
@@ -30,10 +39,13 @@ class GameplayPresenterImpl(width: Int, height: Int): BaseMVPPresenter<GameplayV
             lastCardClicked?.let {
                 if (lastCardClicked != cards[id]) {
                     val lastCardClickedId = lastCardClicked!!.id
-                    Handler().postDelayed({
-                        viewReference.get()?.flipCard(lastCardClickedId)
-                        viewReference.get()?.flipCard(id)
-                    },1000)
+                    timer.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe {
+                                viewReference.get()?.flipCard(lastCardClickedId)
+                                viewReference.get()?.flipCard(id)
+                            }
+                            .bindToLifecycle()
                 } else {
                     viewReference.get()?.setMatchingCard(lastCardClicked!!.id)
                     viewReference.get()?.setMatchingCard(id)
