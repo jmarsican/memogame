@@ -1,14 +1,11 @@
 package com.javiermarsicano.memogame.views.lobby
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-
+import androidx.fragment.app.Fragment
 import com.javiermarsicano.memogame.R
 import kotlinx.android.synthetic.main.fragment_lobby.*
 
@@ -17,37 +14,45 @@ class LobbyFragment : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_lobby, container, false)
     }
 
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btn_level_0.setOnClickListener { onButtonPressed(it) }
+
+        btn_level_1.setOnClickListener { onButtonPressed(it) }
+
+        btn_level_2.setOnClickListener {  onButtonPressed(it) }
+
+        btn_level_3.setOnClickListener { onButtonPressed(it) }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        btn_level_0.setOnClickListener {
-            Toast.makeText(context, "piece of cake", Toast.LENGTH_SHORT).show()
+    fun onButtonPressed(view: View) {
+        var height = 0
+        var width = 0
+        when (view) {
+            btn_level_0 -> {
+                height = 5
+                width = 2
+            }
+            btn_level_1 -> {
+                height = 3
+                width = 4
+            }
+            btn_level_2 -> {
+                height = 4
+                width = 4
+            }
+            btn_level_3 -> {
+                height = 4
+                width = 5
+            }
         }
-
-        btn_level_1.setOnClickListener {
-            Toast.makeText(context, "easy", Toast.LENGTH_SHORT).show()
-        }
-
-        btn_level_2.setOnClickListener {
-            Toast.makeText(context, "medium", Toast.LENGTH_SHORT).show()
-        }
-
-        btn_level_3.setOnClickListener {
-            Toast.makeText(context, "hard", Toast.LENGTH_SHORT).show()
-        }
+        listener?.onFragmentInteraction(height, width)
     }
 
     override fun onAttach(context: Context) {
@@ -64,18 +69,8 @@ class LobbyFragment : Fragment() {
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity.
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction(height: Int, width: Int)
     }
 
     companion object {

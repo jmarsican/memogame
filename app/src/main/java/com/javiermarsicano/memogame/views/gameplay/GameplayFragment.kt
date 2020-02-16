@@ -25,8 +25,8 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            height = 4
-            width = 4
+            height = it.getInt(ARG_PARAM1)
+            width = it.getInt(ARG_PARAM2)
         }
         cards = ArrayList(width*height)
 
@@ -83,6 +83,7 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
     }
 
     companion object {
+        const val TAG = "GAMEPLAY"
         /**
          * @param height number of cards per row.
          * @param width number of cards per column.

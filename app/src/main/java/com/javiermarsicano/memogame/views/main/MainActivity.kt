@@ -1,6 +1,5 @@
 package com.javiermarsicano.memogame.views.main
 
-import android.net.Uri
 import android.os.Bundle
 import com.javiermarsicano.memogame.R
 import com.javiermarsicano.memogame.common.mvp.BaseMVPActivity
@@ -17,18 +16,22 @@ class MainActivity : BaseMVPActivity<MainView, MainPresenter>(), MainView, Lobby
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            val fragment = GameplayFragment.newInstance(1,1)
+            val fragment = LobbyFragment.newInstance()
 
             supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, fragment, LobbyFragment.TAG).commit()
+                    .add(R.id.fragment_container, fragment, LobbyFragment.TAG)
+                    .commit()
         }
 
         setLoaderView(loaderView)
 
     }
 
-    override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onFragmentInteraction(height: Int, width: Int) {
+        val fragment = GameplayFragment.newInstance(height, width)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment, GameplayFragment.TAG)
+                .commit()
     }
 
 
