@@ -5,5 +5,4 @@ interface MVPView {
     fun hideLoading()
     fun onError(resId: Int)
     fun onError(message: String?)
-    fun hideKeyboard()
 }

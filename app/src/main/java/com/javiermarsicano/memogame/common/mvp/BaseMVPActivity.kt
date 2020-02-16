@@ -1,15 +1,13 @@
 package com.javiermarsicano.memogame.common.mvp
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.javiermarsicano.memogame.R
-import java.util.UUID
+import java.util.*
 
 
 abstract class BaseMVPActivity<in V : MVPView, T : MVPPresenter<V>> : FragmentActivity(), MVPView  {
@@ -80,13 +78,6 @@ abstract class BaseMVPActivity<in V : MVPView, T : MVPPresenter<V>> : FragmentAc
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(this, getString(R.string.generic_error), Toast.LENGTH_LONG).show()
-        }
-    }
-
-    override fun hideKeyboard() {
-        currentFocus?.let {
-            val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            manager.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 

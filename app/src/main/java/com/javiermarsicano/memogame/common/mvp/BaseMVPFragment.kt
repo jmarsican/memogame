@@ -1,13 +1,8 @@
 package com.javiermarsicano.memogame.common.mvp
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -21,23 +16,6 @@ abstract class BaseMVPFragment<in V : MVPView, P : MVPPresenter<V>> : Fragment()
     private var fragmentResultSubscription: Disposable? = null
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    /**
-     * @return the layoutInfo id for this fragment
-     */
-    @LayoutRes
-    abstract fun layoutId(): Int
-
-
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(layoutId(), container, false)
-        setHasOptionsMenu(true)
-        view?.isClickable = true
-        return view
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,15 +57,6 @@ abstract class BaseMVPFragment<in V : MVPView, P : MVPPresenter<V>> : Fragment()
 
     override fun onError(message: String?) {
         if (activity != null) activity!!.onError(message)
-    }
-
-    override fun hideKeyboard() {
-        if (activity != null) activity!!.hideKeyboard()
-    }
-
-    protected fun openLink(link: String) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-        startActivity(browserIntent)
     }
 
     /**
