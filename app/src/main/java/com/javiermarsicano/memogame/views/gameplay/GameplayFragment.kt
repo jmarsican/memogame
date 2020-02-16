@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
 import com.javiermarsicano.memogame.R
 import com.javiermarsicano.memogame.common.mvp.BaseMVPFragment
 import com.wajahatkarim3.easyflipview.EasyFlipView
@@ -14,13 +15,13 @@ private const val ARG_PARAM2 = "param2"
 
 class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), GameplayView {
 
-    override fun getPresenter() = presenter
-
     private var height: Int = 0
     private var width: Int = 0
     private var cards: ArrayList<EasyFlipView>? = null
 
     private lateinit var presenter: GameplayPresenter
+
+    override fun getPresenter() = presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,21 +38,38 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_gameplay, container, false) as ViewGroup
 
+        setupToolbar(view)
+
+        castCards(inflater, view)
+
+        return view
+    }
+
+    private fun setupToolbar(view: ViewGroup) {
+        val toolbar = view.findViewById<View>(R.id.toolbar) as Toolbar
+        toolbar.setNavigationIcon(R.mipmap.back_nav_button)
+        toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
+    }
+
+    private fun castCards(inflater: LayoutInflater, view: ViewGroup) {
         cards?.let {
+
             for (i in 0 until height) {
                 val row = inflater.inflate(R.layout.row, view, false) as ViewGroup
 
                 for (j in 0 until width) {
                     val cardLayout = inflater.inflate(R.layout.memocard, null)
 
-                    val card = presenter.getCard(it.size)
+                    val card = presenter.getCard(it.size) //get next card
+
                     val cover = cardLayout.findViewById<ImageView>(R.id.card_cover)
+                    cover.setImageResource(card.image)
+
                     val flipView = cardLayout.findViewById<EasyFlipView>(R.id.cardFlipView)
                     cardLayout.setOnClickListener {
                         flipView.flipTheView()
                         onClick(flipView)
                     }
-                    cover.setImageResource(card.image)
 
                     it.add(flipView)
                     flipView.tag = card.id
@@ -60,8 +78,10 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
                 view.addView(row)
             }
         }
+    }
 
-        return view
+    private fun onClick(view: View?) {
+        presenter.onCardClicked(view?.tag as Int)
     }
 
     override fun flipCard(position: Int) {
@@ -72,18 +92,9 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
         cards?.get(position)?.isFlipEnabled = false
     }
 
-    private fun onClick(view: View?) {
-        presenter.onCardClicked(view?.tag as Int)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
-
     companion object {
         const val TAG = "GAMEPLAY"
+
         /**
          * @param height number of cards per row.
          * @param width number of cards per column.

@@ -31,7 +31,7 @@ class LobbyFragment : Fragment() {
         btn_level_3.setOnClickListener { onButtonPressed(it) }
     }
 
-    fun onButtonPressed(view: View) {
+    private fun onButtonPressed(view: View) {
         var height = 0
         var width = 0
         when (view) {
@@ -76,7 +76,6 @@ class LobbyFragment : Fragment() {
     companion object {
         const val TAG = "LOBBY"
         @JvmStatic
-        fun newInstance() =
-                LobbyFragment()
+        fun newInstance() = LobbyFragment()
     }
 }

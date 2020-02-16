@@ -3,7 +3,7 @@
 
     <string name="generic_error">Some error occurred</string>
 
-    <string name="lobby_hint">Please select level</string>
+    <string name="lobby_hint">Memory Game</string>
     <string name="lobby_level_0">Piece of cake</string>
     <string name="lobby_level_1">Pretty easy</string>
     <string name="lobby_level_2">Respectable</string>

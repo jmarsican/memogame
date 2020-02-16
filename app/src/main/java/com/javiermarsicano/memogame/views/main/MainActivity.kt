@@ -30,7 +30,8 @@ class MainActivity : BaseMVPActivity<MainView, MainPresenter>(), MainView, Lobby
     override fun onFragmentInteraction(height: Int, width: Int) {
         val fragment = GameplayFragment.newInstance(height, width)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment, GameplayFragment.TAG)
+                .addToBackStack("")
+                .add(R.id.fragment_container, fragment, GameplayFragment.TAG)
                 .commit()
     }
 
