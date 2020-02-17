@@ -1,6 +1,7 @@
 package com.javiermarsicano.memogame.views.lobby
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,20 @@ import kotlinx.android.synthetic.main.fragment_lobby.*
 class LobbyFragment : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        mediaPlayer = MediaPlayer.create(this.activity!!.applicationContext, R.raw.piglevelwin2).apply {
+            setVolume(0.5f, 0.5f)
+            start()
+        }
         return inflater.inflate(R.layout.fragment_lobby, container, false)
+    }
+
+    override fun onStop() {
+        mediaPlayer.stop()
+        super.onStop()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,6 +64,7 @@ class LobbyFragment : Fragment() {
             }
         }
         listener?.onFragmentInteraction(height, width)
+        mediaPlayer.stop()
     }
 
     override fun onAttach(context: Context) {

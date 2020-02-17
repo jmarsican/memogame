@@ -1,5 +1,6 @@
 package com.javiermarsicano.memogame.views.gameplay
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
     private var height: Int = 0
     private var width: Int = 0
     private var cards: ArrayList<EasyFlipView>? = null
+
+    private lateinit var mediaPlayer: MediaPlayer
 
     private lateinit var presenter: GameplayPresenter
 
@@ -42,7 +45,17 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
 
         castCards(inflater, view)
 
+        mediaPlayer = MediaPlayer.create(this.activity!!.applicationContext, R.raw.splashscreenloop  ).apply {
+            setVolume(0.5f, 0.5f)
+            start()
+        }
+
         return view
+    }
+
+    override fun onStop() {
+        mediaPlayer.stop()
+        super.onStop()
     }
 
     private fun setupToolbar(view: ViewGroup) {
