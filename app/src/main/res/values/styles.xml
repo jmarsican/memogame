@@ -11,6 +11,7 @@
     <style name="lobby_btn" >
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/lobby_buttons</item>
         <item name="android:layout_marginTop">@dimen/distance_between_cards</item>
     </style>
