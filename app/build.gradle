@@ -42,6 +42,9 @@ dependencies {
     implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
     implementation 'com.google.android:flexbox:2.0.1'
 
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
+
     //rxjava
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"

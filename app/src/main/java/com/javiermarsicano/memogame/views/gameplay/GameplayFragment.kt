@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.javiermarsicano.memogame.R
 import com.javiermarsicano.memogame.common.mvp.BaseMVPFragment
 import com.wajahatkarim3.easyflipview.EasyFlipView
@@ -32,7 +34,8 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
             height = it.getInt(ARG_PARAM1)
             width = it.getInt(ARG_PARAM2)
         }
-        cards = ArrayList(width*height)
+        val total = width * height
+        cards = ArrayList(total)
 
         presenter = GameplayPresenterImpl(width, height) //TODO it should use dependency injection with Dagger
     }
@@ -102,7 +105,11 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
     }
 
     override fun setMatchingCard(position: Int) {
-        cards?.get(position)?.isFlipEnabled = false
+        val card = cards?.get(position)
+        card?.isFlipEnabled = false
+        YoYo.with(Techniques.Shake)
+                .duration(700)
+                .playOn(card)
     }
 
     companion object {
