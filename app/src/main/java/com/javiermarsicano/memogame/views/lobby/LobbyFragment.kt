@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.javiermarsicano.memogame.R
 import kotlinx.android.synthetic.main.fragment_lobby.*
 
+private const val ONE_SECOND_IN_MILLIS = 1000L
+private const val STARTING_ANIMATIONS_TIME = ONE_SECOND_IN_MILLIS
 
 class LobbyFragment : Fragment() {
 
@@ -32,6 +36,23 @@ class LobbyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        YoYo.with(Techniques.ZoomInDown)
+                .duration(STARTING_ANIMATIONS_TIME + ONE_SECOND_IN_MILLIS / 2)
+                .playOn(lobby_hint)
+
+        YoYo.with(Techniques.Landing)
+                .duration(STARTING_ANIMATIONS_TIME)
+                .playOn(btn_level_0)
+        YoYo.with(Techniques.Landing)
+                .duration(STARTING_ANIMATIONS_TIME + ONE_SECOND_IN_MILLIS)
+                .playOn(btn_level_1)
+        YoYo.with(Techniques.Landing)
+                .duration(STARTING_ANIMATIONS_TIME + ONE_SECOND_IN_MILLIS * 2)
+                .playOn(btn_level_2)
+        YoYo.with(Techniques.Landing)
+                .duration(STARTING_ANIMATIONS_TIME + ONE_SECOND_IN_MILLIS * 3)
+                .playOn(btn_level_3)
 
         btn_level_0.setOnClickListener { onButtonPressed(it) }
 

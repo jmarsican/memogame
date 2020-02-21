@@ -107,7 +107,7 @@ class GameplayFragment : BaseMVPFragment<GameplayView, GameplayPresenter>(), Gam
     override fun setMatchingCard(position: Int) {
         val card = cards?.get(position)
         card?.isFlipEnabled = false
-        YoYo.with(Techniques.Shake)
+        YoYo.with(Techniques.Tada)
                 .duration(700)
                 .playOn(card)
     }
